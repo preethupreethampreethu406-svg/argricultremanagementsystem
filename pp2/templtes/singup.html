@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - Agriculture Equipment Rental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 320px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2e7d32;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1b5e20;
+        }
+        .note {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .note a {
+            color: #2e7d32;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h2>Create Account</h2>
+        <form method="POST" action="/signup">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="note">
+            Already have an account? <a href="login.html">Login here</a>
+        </div>
+    </div>
+
+</body>
+</html>

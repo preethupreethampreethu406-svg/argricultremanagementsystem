@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent - Login Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .role-card.active {
+            border-color: #059669;
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2);
+        }
+        
+        .card-hover:hover { 
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl">🚜</span>
+                    <span class="text-2xl font-bold text-green-600">AgriRent</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" onclick="goBack()" class="text-gray-600 hover:text-green-600 font-medium">← Home</a>
+                    <a href="#" onclick="showRegister()" class="text-green-600 border border-green-600 px-4 py-2 rounded-lg hover:bg-green-50 font-medium">Register</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen flex items-center justify-center py-12 px-4">
+        <div class="max-w-4xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome Back</h1>
+                <p class="text-lg text-gray-600">Choose your role to access AgriRent</p>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- Admin -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 text-center card-hover cursor-pointer transition-all" onclick="selectRole('admin')">
+                    <div class="text-5xl mb-4">👨‍💼</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Administrator</h3>
+                    <p class="text-gray-600 mb-4">System management</p>
+                    <div class="bg-red-50 text-red-700 px-3 py-1 rounded text-sm font-medium">🔐 Admin Only</div>
+                </div>
+
+                <!-- Customer -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 text-center card-hover cursor-pointer transition-all" onclick="selectRole('customer')">
+                    <div class="text-5xl mb-4">👨‍🌾</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Farmer</h3>
+                    <p class="text-gray-600 mb-4">Rent equipment</p>
+                    <div class="bg-green-50 text-green-700 px-3 py-1 rounded text-sm font-medium">🌾 Popular</div>
+                </div>
+
+                <!-- Provider -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 text-center card-hover cursor-pointer transition-all" onclick="selectRole('provider')">
+                    <div class="text-5xl mb-4">🏭</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Provider</h3>
+                    <p class="text-gray-600 mb-4">List equipment</p>
+                    <div class="bg-blue-50 text-blue-700 px-3 py-1 rounded text-sm font-medium">💰 Earn</div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6" style="display: none;">
+                <div class="text-center mb-6">
+                    <div id="roleIcon" class="text-5xl mb-3"></div>
+                    <h2 id="roleTitle" class="text-2xl font-bold text-gray-800"></h2>
+                </div>
+
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your email">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your password">
+                    </div>
+
+                    <button type="submit" id="loginButton" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <button onclick="goBackToRoles()" class="text-gray-500 hover:text-gray-700 text-sm">← Choose Different Role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRole = '';
+        
+        const roleData = {
+            admin: { icon: '👨‍💼', title: 'Administrator Login' },
+            customer: { icon: '👨‍🌾', title: 'Farmer Login' },
+            provider: { icon: '🏭', title: 'Provider Login' }
+        };
+
+        function selectRole(role) {
+            selectedRole = role;
+            
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            const data = roleData[role];
+            document.getElementById('roleIcon').textContent = data.icon;
+            document.getElementById('roleTitle').textContent = data.title;
+            
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('loginForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goBackToRoles() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            selectedRole = '';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            if (!selectedRole) {
+                alert('Please select a role first');
+                return;
+            }
+            
+            const button = document.getElementById('loginButton');
+            button.textContent = 'Signing in...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert(`✅ Login successful! Welcome to ${selectedRole} dashboard.`);
+                button.textContent = 'Sign In';
+                button.disabled = false;
+            }, 1500);
+        }
+
+        function showRegister() {
+            alert('Redirecting to registration page...');
+        }
+
+        function goBack() {
+            alert('Redirecting to home page...');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ed89e111e8b2c9',t:'MTc1NzgyODMxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Equipment Rental</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding-top: 70px;
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: slideDown 0.8s ease-in-out;
+        }
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .navbar a {
+            color: white !important;
+        }
+
+        .hero {
+            background: url('image/backgroundimage.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            animation: slideUp 1.2s ease-in-out;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            animation: slideUp 1.5s ease-in-out;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .category-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .category-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .about-section {
+            background-color: #f8f9fa;
+            padding: 50px 20px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+        .about-section img {
+            animation: zoomIn 1.2s ease-in-out;
+        }
+        @keyframes zoomIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .contact-section {
+            background-color: #eef2f3;
+            padding: 50px 20px;
+            animation: fadeInUp 1.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">AgriRent</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><button class="btn btn-success ms-2" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">Login</button></li>
+                    <li class="nav-item"><button class="btn btn-outline-light ms-2" data-bs-toggle="modal"
+                            data-bs-target="#signupModal">Sign Up</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Agricultural Equipment You Can Rely On</h1>
+            <p>Reliable machines, affordable rentals, available anytime.</p>
+            <a href="#categories" class="btn btn-primary btn-lg">View Categories</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Categories</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="image/tractor.jpg" class="card-img-top" alt="Tractors">
+                        <div class="card-body">
+                            <h5 class="card-title">Tractors</h5>
+                            <p class="card-text">Powerful tractors for ploughing, seeding, and more.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="image/images.jpg" class="card-img-top" alt="Harvesters">
+                        <div class="card-body">
+                            <h5 class="card-title">Harvesters</h5>
+                            <p class="card-text">Efficient machines for harvesting crops.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card category-card">
+                        <img src="image/images (1).jpg" class="card-img-top" alt="Ploughs">
+                        <div class="card-body">
+                            <h5 class="card-title">Ploughs</h5>
+                            <p class="card-text">High-quality ploughs for soil preparation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section text-center py-5" style="background-color: #f9f9f9;">
+        <div class="container">
+            <h2>About Us</h2>
+            <p class="mt-3" style="max-width: 800px; margin: auto; font-size: 18px; line-height: 1.6;">
+                AgriRent is dedicated to providing farmers with top-quality agricultural machinery at affordable rental
+                rates.
+                We specialize in offering a wide range of products such as <strong>tractors, harvesters, seeders,
+                    ploughs, and irrigation systems</strong>.
+                Our mission is to empower agriculture by making modern equipment accessible to all, ensuring efficiency,
+                productivity, and sustainability.
+            </p>
+
+            <div class="row mt-5 align-items-center">
+                <div class="col-md-6">
+                    <img src="image/images (1).jpg" alt="Agriculture Products" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6 text-start">
+                    <h4>Our Product Range</h4>
+                    <ul style="list-style: none; padding-left: 0; font-size: 16px;">
+                        <li>🚜 Modern Tractors for multiple farm needs</li>
+                        <li>🌾 High-efficiency Harvesters for faster crop collection</li>
+                        <li>🌱 Seeders and planters for precise sowing</li>
+                        <li>🛠 Ploughs and tillers for soil preparation</li>
+                        <li>💧 Irrigation systems for water management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="text-center">Contact Us</h2>
+            <form class="mt-4 col-md-6 mx-auto">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Your Message</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Type your message here..."
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        &copy; 2025 AgriRent | All Rights Reserved
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

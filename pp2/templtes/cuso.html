@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent - Customer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .slide-in { animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        
+        .nav-item.active { background: #059669; color: white; }
+        .nav-item:hover { background: #f0fdf4; color: #059669; }
+        
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
+        .bounce { animation: bounce 1s ease-in-out; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="flex justify-between items-center px-6 py-4">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🚜</span>
+                <div>
+                    <h1 class="text-2xl font-bold text-green-600">AgriRent</h1>
+                    <p class="text-sm text-gray-500">Customer Dashboard</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-600">👨‍🌾 John Smith</span>
+                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <nav class="w-64 bg-white shadow-lg h-screen slide-in">
+            <div class="p-4">
+                <div class="space-y-2">
+                    <div class="nav-item active px-4 py-3 rounded-lg cursor-pointer transition-all" onclick="showSection('browse')">
+                        🔍 Browse Equipment
+                    </div>
+                    <div class="nav-item px-4 py-3 rounded-lg cursor-pointer transition-all" onclick="showSection('bookings')">
+                        📋 My Bookings
+                    </div>
+                    <div class="nav-item px-4 py-3 rounded-lg cursor-pointer transition-all" onclick="showSection('payments')">
+                        💳 Payment Options
+                    </div>
+                    <div class="nav-item px-4 py-3 rounded-lg cursor-pointer transition-all" onclick="showSection('profile')">
+                        👤 Profile
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <!-- Browse Equipment Section -->
+            <div id="browse" class="section fade-in">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Browse Equipment</h2>
+                
+                <!-- Search & Filters -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <input type="text" placeholder="Search equipment..." class="px-4 py-2 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                            <option>All Categories</option>
+                            <option>Tractors</option>
+                            <option>Harvesters</option>
+                            <option>Irrigation</option>
+                        </select>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                            <option>All Locations</option>
+                            <option>Within 10 miles</option>
+                            <option>Within 25 miles</option>
+                            <option>Within 50 miles</option>
+                        </select>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                            <option>Any Price</option>
+                            <option>Under $100/day</option>
+                            <option>$100-200/day</option>
+                            <option>Over $200/day</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Equipment Grid -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover transition-all cursor-pointer" onclick="viewEquipment('tractor')">
+                        <div class="text-5xl mb-4">🚜</div>
+                        <h3 class="text-xl font-bold mb-2">Heavy-Duty Tractor</h3>
+                        <p class="text-gray-600 mb-3">John Deere 8R Series - Perfect for large fields</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-green-600">$150/day</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm pulse">Available</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">📍 5 miles away</p>
+                        <button onclick="bookEquipment('Heavy-Duty Tractor', 150)" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-all">Book Now</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover transition-all cursor-pointer" onclick="viewEquipment('harvester')">
+                        <div class="text-5xl mb-4">🌾</div>
+                        <h3 class="text-xl font-bold mb-2">Combine Harvester</h3>
+                        <p class="text-gray-600 mb-3">Case IH Axial-Flow - High efficiency harvesting</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-green-600">$300/day</span>
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Rented</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">📍 12 miles away</p>
+                        <button disabled class="w-full bg-gray-400 text-white py-2 rounded-lg cursor-not-allowed">Currently Rented</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6 card-hover transition-all cursor-pointer" onclick="viewEquipment('irrigation')">
+                        <div class="text-5xl mb-4">💧</div>
+                        <h3 class="text-xl font-bold mb-2">Smart Irrigation System</h3>
+                        <p class="text-gray-600 mb-3">Automated sprinkler system with sensors</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-green-600">$75/day</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm pulse">Available</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">📍 8 miles away</p>
+                        <button onclick="bookEquipment('Smart Irrigation System', 75)" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-all">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Bookings Section -->
+            <div id="bookings" class="section hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">My Bookings</h2>
+                
+                <!-- Current Bookings -->
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-4">Current Bookings</h3>
+                    <div class="space-y-4">
+                        <div class="border border-green-200 rounded-lg p-4 bg-green-50">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-lg">Heavy-Duty Tractor</h4>
+                                    <p class="text-gray-600">Booking ID: #BK001</p>
+                                    <p class="text-gray-600">📅 March 15-17, 2024 (3 days)</p>
+                                    <p class="text-gray-600">💰 Total: $450</p>
+                                </div>
+                                <div class="text-right">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Active</span>
+                                    <button onclick="cancelBooking('BK001')" class="block mt-2 text-red-600 hover:text-red-800 text-sm">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking History -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Booking History</h3>
+                    <div class="space-y-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold">Smart Irrigation System</h4>
+                                    <p class="text-gray-600">📅 February 20-25, 2024</p>
+                                    <p class="text-gray-600">💰 Total: $375</p>
+                                </div>
+                                <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Completed</span>
+                            </div>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold">Compact Tractor</h4>
+                                    <p class="text-gray-600">📅 January 10-12, 2024</p>
+                                    <p class="text-gray-600">💰 Total: $240</p>
+                                </div>
+                                <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Options Section -->
+            <div id="payments" class="section hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Payment Options</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Saved Payment Methods -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Saved Payment Methods</h3>
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-2xl">💳</span>
+                                    <div>
+                                        <p class="font-medium">**** **** **** 4532</p>
+                                        <p class="text-sm text-gray-500">Expires 12/26</p>
+                                    </div>
+                                </div>
+                                <button class="text-red-600 hover:text-red-800 text-sm">Remove</button>
+                            </div>
+                            <button onclick="addPaymentMethod()" class="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-gray-500 hover:border-green-500 hover:text-green-600 transition-all">
+                                + Add New Payment Method
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Payment History -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold mb-4">Recent Payments</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                <div>
+                                    <p class="font-medium">Heavy-Duty Tractor</p>
+                                    <p class="text-sm text-gray-500">March 15, 2024</p>
+                                </div>
+                                <span class="font-bold text-green-600">$450</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                <div>
+                                    <p class="font-medium">Irrigation System</p>
+                                    <p class="text-sm text-gray-500">February 20, 2024</p>
+                                </div>
+                                <span class="font-bold text-green-600">$375</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profile" class="section hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Profile Settings</h2>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" value="John Smith" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" value="john@farm.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" value="+1 (555) 123-4567" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Farm Location</label>
+                            <input type="text" value="Springfield, IL" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <button onclick="saveProfile()" class="mt-6 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all">Save Changes</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Book Equipment</h3>
+            <div id="equipmentDetails" class="mb-6"></div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                    <input type="date" id="startDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                    <input type="date" id="endDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none">
+                </div>
+                <div id="totalCost" class="text-xl font-bold text-green-600"></div>
+            </div>
+            
+            <div class="flex space-x-4 mt-6">
+                <button onclick="closeBookingModal()" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition-all">Cancel</button>
+                <button onclick="confirmBooking()" id="confirmBtn" class="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentEquipment = {};
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(sectionName);
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('fade-in');
+            
+            event.target.classList.add('active');
+        }
+
+        function bookEquipment(name, price) {
+            currentEquipment = { name, price };
+            document.getElementById('equipmentDetails').innerHTML = `
+                <div class="text-center">
+                    <h4 class="text-xl font-bold">${name}</h4>
+                    <p class="text-green-600 font-bold">$${price}/day</p>
+                </div>
+            `;
+            document.getElementById('bookingModal').classList.remove('hidden');
+            document.getElementById('bookingModal').classList.add('flex');
+            
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').value = today;
+            document.getElementById('endDate').value = today;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const startDate = new Date(document.getElementById('startDate').value);
+            const endDate = new Date(document.getElementById('endDate').value);
+            const days = Math.max(1, Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1);
+            const total = days * currentEquipment.price;
+            
+            document.getElementById('totalCost').textContent = `Total: $${total} (${days} days)`;
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            document.getElementById('bookingModal').classList.remove('flex');
+        }
+
+        function confirmBooking() {
+            const btn = document.getElementById('confirmBtn');
+            btn.innerHTML = `
+                <svg class="animate-spin w-5 h-5 mx-auto" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            `;
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('✅ Booking confirmed! Check your bookings section.');
+                closeBookingModal();
+                btn.innerHTML = 'Confirm Booking';
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        function cancelBooking(id) {
+            if(confirm('Are you sure you want to cancel this booking?')) {
+                alert(`Booking ${id} cancelled successfully`);
+            }
+        }
+
+        function addPaymentMethod() {
+            alert('Add payment method functionality - would open payment form');
+        }
+
+        function saveProfile() {
+            alert('Profile saved successfully!');
+        }
+
+        function logout() {
+            if(confirm('Are you sure you want to logout?')) {
+                alert('Logging out...');
+            }
+        }
+
+        // Add event listeners for date changes
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('startDate')?.addEventListener('change', calculateTotal);
+            document.getElementById('endDate')?.addEventListener('change', calculateTotal);
+        });
+
+        // Close modal on outside click
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) closeBookingModal();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ed992902a13d2b',t:'MTc1NzgyODkzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

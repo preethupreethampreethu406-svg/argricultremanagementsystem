@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent - Agriculture Equipment Rental Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .hero-bg { 
+            background: linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%); 
+        }
+        
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 3s ease-in-out infinite; }
+        .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+        
+        .card-hover { 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .card-hover:hover { 
+            transform: translateY(-12px) scale(1.03); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes float { 
+            0%, 100% { transform: translateY(0) rotate(0deg); } 
+            50% { transform: translateY(-20px) rotate(5deg); } 
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 fade-in-up">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl">🚜</span>
+                    <span class="text-2xl font-bold text-green-600">AgriRent</span>
+                    <span class="text-sm text-gray-500 hidden md:block">Equipment Rental System</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-green-600 font-medium">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-green-600 font-medium">About</a>
+                    <a href="#equipment" class="text-gray-700 hover:text-green-600 font-medium">Equipment</a>
+                    <a href="#services" class="text-gray-700 hover:text-green-600 font-medium">Services</a>
+                    <a href="#contact" class="text-gray-700 hover:text-green-600 font-medium">Contact</a>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="showAuth('login')" class="text-green-600 border-2 border-green-600 px-5 py-2 rounded-lg hover:bg-green-50 transition-all font-medium">
+                        Login
+                    </button>
+                    <button onclick="showAuth('register')" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition-all font-medium shadow-lg">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-24">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="fade-in-up stagger-1">
+                <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+                    Agriculture Equipment
+                    <br>
+                    <span class="text-green-200 animate-pulse-slow">Rental Management</span>
+                </h1>
+            </div>
+            <div class="fade-in-up stagger-2">
+                <p class="text-xl md:text-2xl mb-4 max-w-4xl mx-auto leading-relaxed">
+                    Revolutionary digital platform connecting farmers with premium agricultural machinery
+                </p>
+                <p class="text-lg mb-10 max-w-3xl mx-auto text-green-100">
+                    Smart booking • Real-time tracking • Quality assurance • 24/7 support
+                </p>
+            </div>
+            <div class="fade-in-up stagger-3 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showAuth('register')" class="bg-white text-green-600 px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-2xl animate-pulse-slow">
+                    🚀 Get Started Today
+                </button>
+                <button onclick="document.getElementById('equipment').scrollIntoView({behavior: 'smooth'})" class="border-3 border-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-green-600 transition-all">
+                    🔍 Explore Equipment
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Introduction -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-5xl font-bold text-gray-800 mb-6">Project Introduction</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    AgriRent is a comprehensive Agriculture Equipment Rental Management System designed to revolutionize 
+                    how farmers access and utilize modern agricultural machinery through smart technology solutions.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div class="fade-in-up stagger-1">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">🎯 Project Vision</h3>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Our mission is to democratize access to premium agricultural equipment, enabling farmers of all sizes 
+                        to leverage cutting-edge technology without the burden of ownership costs.
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="text-green-600 mr-3">✓</span> Reduce farming operational costs by 40%</li>
+                        <li class="flex items-center"><span class="text-green-600 mr-3">✓</span> Increase crop yield through modern equipment</li>
+                        <li class="flex items-center"><span class="text-green-600 mr-3">✓</span> Promote sustainable farming practices</li>
+                        <li class="flex items-center"><span class="text-green-600 mr-3">✓</span> Support small and medium farmers</li>
+                    </ul>
+                </div>
+                <div class="fade-in-up stagger-2">
+                    <div class="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-2xl">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">🏆 Key Features</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center p-4">
+                                <div class="text-4xl mb-2 animate-bounce-slow">📱</div>
+                                <p class="font-semibold">Smart Booking</p>
+                            </div>
+                            <div class="text-center p-4">
+                                <div class="text-4xl mb-2 animate-float">🗺️</div>
+                                <p class="font-semibold">GPS Tracking</p>
+                            </div>
+                            <div class="text-center p-4">
+                                <div class="text-4xl mb-2 animate-pulse-slow">💳</div>
+                                <p class="font-semibold">Secure Payments</p>
+                            </div>
+                            <div class="text-center p-4">
+                                <div class="text-4xl mb-2 animate-float">📊</div>
+                                <p class="font-semibold">Analytics</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 fade-in-up stagger-3">
+                <div class="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl">
+                    <div class="text-5xl mb-4 animate-pulse-slow">⚡</div>
+                    <h3 class="text-xl font-bold mb-3">Instant Access</h3>
+                    <p class="text-gray-600">Real-time equipment availability and instant booking confirmation</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
+                    <div class="text-5xl mb-4 animate-bounce-slow">🛡️</div>
+                    <h3 class="text-xl font-bold mb-3">Quality Assured</h3>
+                    <p class="text-gray-600">Certified equipment with maintenance records and performance guarantee</p>
+                </div>
+                <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl">
+                    <div class="text-5xl mb-4 animate-float">🤝</div>
+                    <h3 class="text-xl font-bold mb-3">Community Driven</h3>
+                    <p class="text-gray-600">Connecting farmers and equipment owners in a trusted ecosystem</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Highlights -->
+    <section id="equipment" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-5xl font-bold text-gray-800 mb-6">Available Equipment</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Premium agricultural machinery ready to boost your farming operations
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Tractors -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-1">
+                    <div class="h-48 bg-gradient-to-br from-green-400 via-green-500 to-green-600 flex items-center justify-center relative">
+                        <span class="text-8xl animate-float">🚜</span>
+                        <div class="absolute top-4 right-4 bg-white bg-opacity-20 px-3 py-1 rounded-full text-white font-semibold">
+                            Popular
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Heavy-Duty Tractors</h3>
+                        <p class="text-gray-600 mb-4">High-performance tractors for plowing, tilling, and heavy farm operations</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$150<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• 100-300 HP range available</li>
+                            <li>• GPS navigation included</li>
+                            <li>• Fuel efficient engines</li>
+                        </ul>
+                        <button onclick="showBooking('Heavy-Duty Tractor')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Harvesters -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-2">
+                    <div class="h-48 bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-500 flex items-center justify-center relative">
+                        <span class="text-8xl animate-bounce-slow">🌾</span>
+                        <div class="absolute top-4 right-4 bg-white bg-opacity-20 px-3 py-1 rounded-full text-white font-semibold">
+                            Premium
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Combine Harvesters</h3>
+                        <p class="text-gray-600 mb-4">Advanced harvesting machines for wheat, corn, rice, and other grain crops</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$300<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• Multi-crop compatibility</li>
+                            <li>• Automated grain handling</li>
+                            <li>• Real-time yield monitoring</li>
+                        </ul>
+                        <button onclick="showBooking('Combine Harvester')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Irrigation Systems -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-3">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 flex items-center justify-center">
+                        <span class="text-8xl animate-pulse-slow">💧</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Smart Irrigation</h3>
+                        <p class="text-gray-600 mb-4">Precision sprinkler and drip irrigation systems with smart controls</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$75<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• Water-efficient technology</li>
+                            <li>• Mobile app control</li>
+                            <li>• Weather integration</li>
+                        </ul>
+                        <button onclick="showBooking('Smart Irrigation System')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Seeders -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-4">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 flex items-center justify-center">
+                        <span class="text-8xl animate-float">🌱</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Precision Seeders</h3>
+                        <p class="text-gray-600 mb-4">Advanced seeding equipment for optimal crop establishment and spacing</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$120<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• Variable rate seeding</li>
+                            <li>• GPS-guided precision</li>
+                            <li>• Multiple seed types</li>
+                        </ul>
+                        <button onclick="showBooking('Precision Seeder')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sprayers -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-5">
+                    <div class="h-48 bg-gradient-to-br from-red-400 via-red-500 to-red-600 flex items-center justify-center">
+                        <span class="text-8xl animate-float">🚿</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Crop Sprayers</h3>
+                        <p class="text-gray-600 mb-4">Efficient fertilizer and pesticide application with precision control</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$90<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• Boom width up to 120ft</li>
+                            <li>• Auto-section control</li>
+                            <li>• Drift reduction technology</li>
+                        </ul>
+                        <button onclick="showBooking('Crop Sprayer')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plows -->
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-hover fade-in-up stagger-6">
+                    <div class="h-48 bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center">
+                        <span class="text-8xl animate-pulse-slow">🔧</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Plowing Equipment</h3>
+                        <p class="text-gray-600 mb-4">Professional plows and tillage equipment for soil preparation</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-3xl font-bold text-green-600">$100<span class="text-lg">/day</span></span>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li>• Moldboard & chisel plows</li>
+                            <li>• Adjustable working depth</li>
+                            <li>• Heavy-duty construction</li>
+                        </ul>
+                        <button onclick="showBooking('Plowing Equipment')" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Highlights -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="text-5xl font-bold text-gray-800 mb-6">Our Services</h2>
+                <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive support services to ensure your farming success
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl card-hover fade-in-up stagger-1">
+                    <div class="text-6xl mb-6 animate-pulse-slow">🔧</div>
+                    <h3 class="text-xl font-bold mb-4">24/7 Technical Support</h3>
+                    <p class="text-gray-600 mb-4">Round-the-clock assistance for equipment operation and troubleshooting</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Phone & chat support</li>
+                        <li>• On-site assistance</li>
+                        <li>• Emergency repairs</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl card-hover fade-in-up stagger-2">
+                    <div class="text-6xl mb-6 animate-bounce-slow">⚙️</div>
+                    <h3 class="text-xl font-bold mb-4">Maintenance & Repairs</h3>
+                    <p class="text-gray-600 mb-4">Professional maintenance services to keep equipment in peak condition</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Preventive maintenance</li>
+                        <li>• Quality spare parts</li>
+                        <li>• Certified technicians</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl card-hover fade-in-up stagger-3">
+                    <div class="text-6xl mb-6 animate-float">📚</div>
+                    <h3 class="text-xl font-bold mb-4">Training & Education</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive training programs for safe and efficient equipment operation</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Hands-on training</li>
+                        <li>• Safety protocols</li>
+                        <li>• Best practices</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center p-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl card-hover fade-in-up stagger-4">
+                    <div class="text-6xl mb-6 animate-float">🚚</div>
+                    <h3 class="text-xl font-bold mb-4">Delivery & Pickup</h3>
+                    <p class="text-gray-600 mb-4">Convenient transportation services directly to your farm location</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Free local delivery</li>
+                        <li>• Scheduled pickup</li>
+                        <li>• GPS tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center fade-in-up">
+            <h2 class="text-4xl font-bold mb-6">Ready to Transform Your Farming?</h2>
+            <p class="text-xl mb-8">Join thousands of farmers who trust AgriRent for their equipment needs</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showAuth('register')" class="bg-white text-green-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg">
+                    🚀 Start Your Journey
+                </button>
+                <button onclick="showAuth('login')" class="border-2 border-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-green-600 transition-all">
+                    📱 Access Your Account
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-3xl">🚜</span>
+                        <span class="text-2xl font-bold">AgriRent</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Revolutionizing agriculture through smart equipment rental solutions.</p>
+                    <div class="flex space-x-4">
+                        <span class="text-2xl cursor-pointer hover:text-green-400">📘</span>
+                        <span class="text-2xl cursor-pointer hover:text-green-400">📱</span>
+                        <span class="text-2xl cursor-pointer hover:text-green-400">📧</span>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#home" class="hover:text-green-400">Home</a></li>
+                        <li><a href="#about" class="hover:text-green-400">About</a></li>
+                        <li><a href="#equipment" class="hover:text-green-400">Equipment</a></li>
+                        <li><a href="#services" class="hover:text-green-400">Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Equipment</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-green-400">Tractors</a></li>
+                        <li><a href="#" class="hover:text-green-400">Harvesters</a></li>
+                        <li><a href="#" class="hover:text-green-400">Irrigation</a></li>
+                        <li><a href="#" class="hover:text-green-400">Seeders</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>📞 +1 (555) 123-4567</li>
+                        <li>📧 info@agrirent.com</li>
+                        <li>📍 123 Farm Road, Agriculture City</li>
+                        <li>🕒 24/7 Support Available</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriRent - Agriculture Equipment Rental Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-800"></h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl font-bold">&times;</button>
+            </div>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        function showAuth(type) {
+            const isLogin = type === 'login';
+            document.getElementById('modalTitle').textContent = isLogin ? 'Welcome Back to AgriRent' : 'Join the AgriRent Community';
+            document.getElementById('modalContent').innerHTML = `
+                <div class="space-y-6">
+                    <button onclick="handleGoogle('${type}')" class="w-full bg-white border-2 border-gray-300 text-gray-700 py-4 rounded-xl hover:bg-gray-50 transition-all flex items-center justify-center gap-3 font-semibold">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        ${isLogin ? 'Continue' : 'Sign up'} with Google
+                    </button>
+                    
+                    <div class="flex items-center">
+                        <div class="flex-1 border-t border-gray-300"></div>
+                        <span class="px-4 text-gray-500 text-sm font-medium">or</span>
+                        <div class="flex-1 border-t border-gray-300"></div>
+                    </div>
+                    
+                    <form onsubmit="handleForm(event, '${type}')" class="space-y-4">
+                        ${!isLogin ? '<input type="text" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" placeholder="Full Name">' : ''}
+                        <input type="email" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" placeholder="Email Address">
+                        ${!isLogin ? '<input type="tel" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" placeholder="Phone Number">' : ''}
+                        <input type="password" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" placeholder="Password">
+                        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-all font-semibold text-lg">
+                            ${isLogin ? '🚀 Login to AgriRent' : '🌱 Create Account'}
+                        </button>
+                        <p class="text-center text-sm text-gray-600">
+                            ${isLogin ? "Don't have an account?" : "Already have an account?"}
+                            <button type="button" onclick="showAuth('${isLogin ? 'register' : 'login'}')" class="text-green-600 hover:text-green-700 font-semibold ml-1">
+                                ${isLogin ? 'Sign up here' : 'Login here'}
+                            </button>
+                        </p>
+                    </form>
+                </div>
+            `;
+            showModal();
+        }
+
+        function showBooking(equipment) {
+            document.getElementById('modalTitle').textContent = `Book ${equipment}`;
+            document.getElementById('modalContent').innerHTML = `
+                <form onsubmit="handleBooking(event, '${equipment}')" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Start Date</label>
+                            <input type="date" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">End Date</label>
+                            <input type="date" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Farm Location</label>
+                        <input type="text" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" placeholder="Enter your farm address">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Special Requirements</label>
+                        <textarea class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:outline-none" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition-all font-semibold text-lg">
+                        🚀 Submit Booking Request
+                    </button>
+                    <p class="text-xs text-gray-500 text-center bg-gray-50 p-3 rounded-lg">
+                        📋 This is a demo booking system. In production, this would process real bookings.
+                    </p>
+                </form>
+            `;
+            showModal();
+        }
+
+        function showModal() {
+            document.getElementById('modal').classList.remove('hidden');
+            document.getElementById('modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.getElementById('modal').classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleGoogle(type) {
+            const btn = event.target;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = `
+                <svg class="animate-spin w-6 h-6 mr-3" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                ${type === 'login' ? 'Signing you in...' : 'Creating your account...'}
+            `;
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert(`🎉 Google ${type} successful! Welcome to AgriRent!`);
+                closeModal();
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 2500);
+        }
+
+        function handleForm(event, type) {
+            event.preventDefault();
+            alert(`✅ ${type === 'login' ? 'Login' : 'Registration'} demo completed successfully!`);
+            closeModal();
+        }
+
+        function handleBooking(event, equipment) {
+            event.preventDefault();
+            alert(`📋 ${equipment} booking request submitted successfully! Our team will contact you soon.`);
+            closeModal();
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ed8352f426b2c9',t:'MTc1NzgyODA0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

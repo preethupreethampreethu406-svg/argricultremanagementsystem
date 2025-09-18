@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Equipment Rental System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-green-50">
+
+  <!-- Navbar -->
+  <nav class="bg-green-700 text-white p-4 flex justify-between">
+    <h1 class="text-xl font-bold">AgriRent Pro</h1>
+    <div class="space-x-4">
+      <button onclick="showPage('booking')" class="hover:underline">Booking</button>
+      <button onclick="showPage('payment')" class="hover:underline">Payment</button>
+      <button onclick="showPage('reports')" class="hover:underline">Admin Reports</button>
+    </div>
+  </nav>
+
+  <!-- Booking Section -->
+  <section id="booking" class="p-8">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold text-green-700 mb-4">Book Equipment</h2>
+      <form class="space-y-4">
+        <div>
+          <label class="block font-medium">Select Equipment</label>
+          <select class="w-full border rounded-lg p-2">
+            <option>Tractor</option>
+            <option>Plough</option>
+            <option>Harvester</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-medium">Start Date</label>
+            <input type="date" class="w-full border rounded-lg p-2">
+          </div>
+          <div>
+            <label class="block font-medium">End Date</label>
+            <input type="date" class="w-full border rounded-lg p-2">
+          </div>
+        </div>
+        <div>
+          <label class="block font-medium">Customer Name</label>
+          <input type="text" class="w-full border rounded-lg p-2" placeholder="Enter your name">
+        </div>
+        <div>
+          <label class="block font-medium">Contact</label>
+          <input type="text" class="w-full border rounded-lg p-2" placeholder="Phone / Email">
+        </div>
+        <button type="button" onclick="showPage('payment')" 
+          class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700">
+          Proceed to Payment
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Payment Section -->
+  <section id="payment" class="p-8 hidden">
+    <div class="bg-white shadow-lg rounded-xl p-6 max-w-md mx-auto">
+      <h2 class="text-xl font-bold text-blue-700 mb-4">Payment Gateway</h2>
+      <p class="mb-2">Booking: Tractor (2 days)</p>
+      <p class="mb-4">Amount: <span class="font-bold">₹2000</span></p>
+      
+      <button onclick="confirmPayment()" 
+        class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 mb-3">
+        Pay Now
+      </button>
+      
+      <div class="bg-green-100 text-green-700 p-3 rounded-lg hidden" id="successMsg">
+        ✅ Payment Successful! Booking Confirmed.
+      </div>
+    </div>
+  </section>
+
+  <!-- Reports Section -->
+  <section id="reports" class="p-8 hidden">
+    <h2 class="text-2xl font-bold mb-6 text-green-700">Admin Reports & Analytics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Usage -->
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Equipment Usage</h3>
+        <canvas id="usageChart"></canvas>
+      </div>
+      <!-- Income -->
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Monthly Income</h3>
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <!-- Demand -->
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Equipment Demand</h3>
+        <canvas id="demandChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    function showPage(page) {
+      document.getElementById("booking").classList.add("hidden");
+      document.getElementById("payment").classList.add("hidden");
+      document.getElementById("reports").classList.add("hidden");
+      document.getElementById(page).classList.remove("hidden");
+    }
+
+    function confirmPayment() {
+      document.getElementById("successMsg").classList.remove("hidden");
+    }
+
+    // Charts
+    window.onload = function () {
+      new Chart(document.getElementById("usageChart"), {
+        type: 'bar',
+        data: {
+          labels: ["Tractor", "Harvester", "Plough", "Seeder"],
+          datasets: [{
+            label: "Days Rented",
+            data: [50, 30, 20, 15],
+            backgroundColor: "rgba(34,197,94,0.7)"
+          }]
+        }
+      });
+
+      new Chart(document.getElementById("incomeChart"), {
+        type: 'line',
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+          datasets: [{
+            label: "Income (₹)",
+            data: [12000, 15000, 10000, 18000, 20000],
+            borderColor: "rgba(59,130,246,1)",
+            fill: false
+          }]
+        }
+      });
+
+      new Chart(document.getElementById("demandChart"), {
+        type: 'pie',
+        data: {
+          labels: ["Tractor", "Harvester", "Plough"],
+          datasets: [{
+            data: [40, 25, 35],
+            backgroundColor: ["#22c55e", "#3b82f6", "#f59e0b"]
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+</html>

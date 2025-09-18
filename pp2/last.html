@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Equipment Rental System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Animation styles */
+    .fade {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-green-50">
+
+  <!-- Navbar -->
+  <nav class="bg-green-700 text-white p-4 flex flex-wrap justify-between items-center">
+    <h1 class="text-xl font-bold">AgriRent Pro</h1>
+    <div class="space-x-4">
+      <button onclick="showPage('booking')" class="hover:underline">Booking</button>
+      <button onclick="showPage('payment')" class="hover:underline">Payment</button>
+      <button onclick="showPage('reports')" class="hover:underline">Reports</button>
+      <button onclick="showPage('profile')" class="hover:underline">Profile</button>
+      <button onclick="showPage('help')" class="hover:underline">Help</button>
+      <button onclick="showPage('about')" class="hover:underline">About</button>
+    </div>
+  </nav>
+
+  <!-- Booking Page -->
+  <section id="booking" class="p-8 fade">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold text-green-700 mb-4">Book Equipment</h2>
+      <form class="space-y-4">
+        <div>
+          <label class="block font-medium">Select Equipment</label>
+          <select id="equipmentSelect" class="w-full border rounded-lg p-2">
+            <option value="Tractor" data-price="2000">Tractor - ₹2000</option>
+            <option value="Plough" data-price="1000">Plough - ₹1000</option>
+            <option value="Harvester" data-price="5000">Harvester - ₹5000</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-medium">Start Date</label>
+            <input type="date" id="startDate" class="w-full border rounded-lg p-2">
+          </div>
+          <div>
+            <label class="block font-medium">End Date</label>
+            <input type="date" id="endDate" class="w-full border rounded-lg p-2">
+          </div>
+        </div>
+        <div>
+          <label class="block font-medium">Customer Name</label>
+          <input type="text" id="custName" class="w-full border rounded-lg p-2" placeholder="Enter your name">
+        </div>
+        <div>
+          <label class="block font-medium">Contact</label>
+          <input type="text" id="custContact" class="w-full border rounded-lg p-2" placeholder="Phone / Email">
+        </div>
+        <button type="button" onclick="goToPayment()" 
+          class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700">
+          Proceed to Payment
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Payment Page -->
+  <section id="payment" class="p-8 hidden fade">
+    <div class="bg-white shadow-lg rounded-xl p-6 max-w-md mx-auto">
+      <h2 class="text-xl font-bold text-blue-700 mb-4">Payment Gateway</h2>
+      <p class="mb-2">Booking: <span id="bookingInfo"></span></p>
+      <p class="mb-4">Amount: <span class="font-bold" id="bookingAmount"></span></p>
+      
+      <button onclick="confirmPayment()" 
+        class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 mb-3">
+        Pay Now
+      </button>
+      
+      <div class="bg-green-100 text-green-700 p-3 rounded-lg hidden" id="successMsg">
+        ✅ Payment Successful! Booking Confirmed.
+      </div>
+    </div>
+  </section>
+
+  <!-- Reports Page -->
+  <section id="reports" class="p-8 hidden fade">
+    <h2 class="text-2xl font-bold mb-6 text-green-700">Admin Reports & Analytics</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Equipment Usage</h3>
+        <canvas id="usageChart"></canvas>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Monthly Income</h3>
+        <canvas id="incomeChart"></canvas>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-lg">
+        <h3 class="font-semibold mb-2">Equipment Demand</h3>
+        <canvas id="demandChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile & Settings -->
+  <section id="profile" class="p-8 hidden fade">
+    <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold text-green-700 mb-4">Profile & Settings</h2>
+      <form class="space-y-4">
+        <div>
+          <label class="block font-medium">Full Name</label>
+          <input type="text" class="w-full border rounded-lg p-2" placeholder="Update your name">
+        </div>
+        <div>
+          <label class="block font-medium">Email</label>
+          <input type="email" class="w-full border rounded-lg p-2" placeholder="Update your email">
+        </div>
+        <div>
+          <label class="block font-medium">Change Password</label>
+          <input type="password" class="w-full border rounded-lg p-2" placeholder="New password">
+        </div>
+        <div>
+          <label class="block font-medium">Manage Notifications</label>
+          <select class="w-full border rounded-lg p-2">
+            <option>Email Alerts</option>
+            <option>SMS Notifications</option>
+            <option>Push Notifications</option>
+          </select>
+        </div>
+        <button type="button" class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Help & Contact -->
+  <section id="help" class="p-8 hidden fade">
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold text-green-700 mb-4">Help & Contact</h2>
+      <h3 class="font-semibold mb-2">FAQs</h3>
+      <ul class="list-disc list-inside mb-4">
+        <li>How to book equipment? – Go to Booking page, fill details and proceed to payment.</li>
+        <li>How to cancel booking? – Contact support team within 24 hours.</li>
+        <li>What payment methods are accepted? – UPI, Card, Net Banking.</li>
+      </ul>
+      <h3 class="font-semibold mb-2">Contact Support</h3>
+      <form class="space-y-4">
+        <div>
+          <input type="text" class="w-full border rounded-lg p-2" placeholder="Your Name">
+        </div>
+        <div>
+          <input type="email" class="w-full border rounded-lg p-2" placeholder="Your Email">
+        </div>
+        <div>
+          <textarea class="w-full border rounded-lg p-2" rows="3" placeholder="Your Message"></textarea>
+        </div>
+        <button type="button" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- About Us -->
+  <section id="about" class="p-8 hidden fade">
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-xl p-6 text-center">
+      <h2 class="text-2xl font-bold text-green-700 mb-4 animate-pulse">About Us</h2>
+      <p class="text-gray-700 leading-relaxed">
+        🌱 AgriRent Pro is a digital solution to simplify agricultural equipment rentals.  
+        Farmers can easily book, pay, and access reports online.  
+        Our mission is to empower farmers with technology, reduce costs, and increase productivity. 🚜
+      </p>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script>
+    // Page navigation
+    function showPage(page) {
+      ["booking", "payment", "reports", "profile", "help", "about"].forEach(p => {
+        document.getElementById(p).classList.add("hidden");
+      });
+      document.getElementById(page).classList.remove("hidden");
+    }
+
+    // Booking → Payment flow
+    function goToPayment() {
+      const equipment = document.getElementById("equipmentSelect");
+      const selected = equipment.options[equipment.selectedIndex];
+      const eqName = selected.value;
+      const price = selected.dataset.price;
+
+      document.getElementById("bookingInfo").textContent = eqName;
+      document.getElementById("bookingAmount").textContent = "₹" + price;
+      showPage("payment");
+    }
+
+    function confirmPayment() {
+      document.getElementById("successMsg").classList.remove("hidden");
+    }
+
+    // Charts
+    window.onload = function () {
+      new Chart(document.getElementById("usageChart"), {
+        type: 'bar',
+        data: {
+          labels: ["Tractor", "Harvester", "Plough", "Seeder"],
+          datasets: [{
+            label: "Days Rented",
+            data: [50, 30, 20, 15],
+            backgroundColor: "rgba(34,197,94,0.7)"
+          }]
+        }
+      });
+
+      new Chart(document.getElementById("incomeChart"), {
+        type: 'line',
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+          datasets: [{
+            label: "Income (₹)",
+            data: [12000, 15000, 10000, 18000, 20000],
+            borderColor: "rgba(59,130,246,1)",
+            fill: false
+          }]
+        }
+      });
+
+      new Chart(document.getElementById("demandChart"), {
+        type: 'pie',
+        data: {
+          labels: ["Tractor", "Harvester", "Plough"],
+          datasets: [{
+            data: [40, 25, 35],
+            backgroundColor: ["#22c55e", "#3b82f6", "#f59e0b"]
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent Equipment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow p-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🚜</span>
+                <h1 class="text-xl font-bold text-green-600">AgriRent Equipment</h1>
+            </div>
+            <button onclick="showCatalog()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">← Back to Catalog</button>
+        </div>
+    </header>
+
+    <!-- Equipment Catalog -->
+    <div id="catalog" class="p-4 fade">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">Equipment Catalog</h2>
+            <div class="flex space-x-2">
+                <select class="border rounded px-3 py-1" onchange="filterEquipment()">
+                    <option>All Categories</option>
+                    <option>Tractors</option>
+                    <option>Harvesters</option>
+                    <option>Irrigation</option>
+                </select>
+                <input type="text" placeholder="Search..." class="border rounded px-3 py-1" onkeyup="searchEquipment()">
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4" id="equipmentGrid">
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('tractor')">
+                <div class="text-4xl mb-3">🚜</div>
+                <h3 class="font-bold text-lg">Heavy-Duty Tractor</h3>
+                <p class="text-gray-600 text-sm mb-2">John Deere 8R Series</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$150/day</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                </div>
+                <p class="text-gray-500 text-sm">Perfect for heavy plowing and field preparation</p>
+            </div>
+
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('harvester')">
+                <div class="text-4xl mb-3">🌾</div>
+                <h3 class="font-bold text-lg">Combine Harvester</h3>
+                <p class="text-gray-600 text-sm mb-2">Case IH Axial-Flow</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$300/day</span>
+                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Rented</span>
+                </div>
+                <p class="text-gray-500 text-sm">High-capacity harvesting for grain crops</p>
+            </div>
+
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('irrigation')">
+                <div class="text-4xl mb-3">💧</div>
+                <h3 class="font-bold text-lg">Smart Irrigation System</h3>
+                <p class="text-gray-600 text-sm mb-2">Automated Sprinkler</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$75/day</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                </div>
+                <p class="text-gray-500 text-sm">Efficient water management system</p>
+            </div>
+
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('seeder')">
+                <div class="text-4xl mb-3">🌱</div>
+                <h3 class="font-bold text-lg">Precision Seeder</h3>
+                <p class="text-gray-600 text-sm mb-2">Kinze 3600 Planter</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$120/day</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                </div>
+                <p class="text-gray-500 text-sm">Accurate seed placement technology</p>
+            </div>
+
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('cultivator')">
+                <div class="text-4xl mb-3">🔧</div>
+                <h3 class="font-bold text-lg">Field Cultivator</h3>
+                <p class="text-gray-600 text-sm mb-2">Case IH Tiger-Mate</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$90/day</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                </div>
+                <p class="text-gray-500 text-sm">Soil preparation and weed control</p>
+            </div>
+
+            <div class="bg-white rounded shadow p-4 cursor-pointer hover:shadow-lg transition-all" onclick="showDetails('mower')">
+                <div class="text-4xl mb-3">✂️</div>
+                <h3 class="font-bold text-lg">Rotary Mower</h3>
+                <p class="text-gray-600 text-sm mb-2">Bush Hog 2615</p>
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xl font-bold text-green-600">$60/day</span>
+                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Maintenance</span>
+                </div>
+                <p class="text-gray-500 text-sm">Heavy-duty grass and brush cutting</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Equipment Details -->
+    <div id="details" class="hidden p-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="grid md:grid-cols-2 gap-6 p-6">
+                    <!-- Image Gallery -->
+                    <div>
+                        <div class="mb-4">
+                            <div id="mainImage" class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-6xl">🚜</div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <div class="w-16 h-16 bg-gray-100 rounded cursor-pointer flex items-center justify-center text-2xl" onclick="changeImage('🚜')">🚜</div>
+                            <div class="w-16 h-16 bg-gray-100 rounded cursor-pointer flex items-center justify-center text-2xl" onclick="changeImage('⚙️')">⚙️</div>
+                            <div class="w-16 h-16 bg-gray-100 rounded cursor-pointer flex items-center justify-center text-2xl" onclick="changeImage('🔧')">🔧</div>
+                        </div>
+                    </div>
+
+                    <!-- Equipment Info -->
+                    <div>
+                        <div class="mb-4">
+                            <h1 id="equipmentTitle" class="text-3xl font-bold mb-2">Heavy-Duty Tractor</h1>
+                            <p id="equipmentModel" class="text-gray-600 mb-4">John Deere 8R Series</p>
+                            <div class="flex items-center space-x-4 mb-4">
+                                <span id="equipmentPrice" class="text-3xl font-bold text-green-600">$150/day</span>
+                                <span id="equipmentStatus" class="bg-green-100 text-green-800 px-3 py-1 rounded-full pulse">Available</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-bold mb-2">Specifications</h3>
+                            <ul id="equipmentSpecs" class="text-sm text-gray-600 space-y-1">
+                                <li>• Engine: 370 HP Diesel</li>
+                                <li>• Transmission: PowerShift</li>
+                                <li>• Weight: 18,500 lbs</li>
+                                <li>• Fuel Capacity: 175 gallons</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-bold mb-2">Rental Period</h3>
+                            <div class="flex space-x-2 mb-2">
+                                <input type="date" id="startDate" class="border rounded px-3 py-2 flex-1">
+                                <input type="date" id="endDate" class="border rounded px-3 py-2 flex-1">
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span>Total Days: </span><span id="totalDays" class="font-bold">0</span>
+                                <span class="ml-4">Total Cost: </span><span id="totalCost" class="font-bold text-green-600">$0</span>
+                            </div>
+                        </div>
+
+                        <button onclick="bookEquipment()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-all">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const equipment = {
+            tractor: { title: 'Heavy-Duty Tractor', model: 'John Deere 8R Series', price: 150, status: 'Available', icon: '🚜' },
+            harvester: { title: 'Combine Harvester', model: 'Case IH Axial-Flow', price: 300, status: 'Rented', icon: '🌾' },
+            irrigation: { title: 'Smart Irrigation System', model: 'Automated Sprinkler', price: 75, status: 'Available', icon: '💧' },
+            seeder: { title: 'Precision Seeder', model: 'Kinze 3600 Planter', price: 120, status: 'Available', icon: '🌱' },
+            cultivator: { title: 'Field Cultivator', model: 'Case IH Tiger-Mate', price: 90, status: 'Available', icon: '🔧' },
+            mower: { title: 'Rotary Mower', model: 'Bush Hog 2615', price: 60, status: 'Maintenance', icon: '✂️' }
+        };
+
+        function showCatalog() {
+            document.getElementById('catalog').classList.remove('hidden');
+            document.getElementById('details').classList.add('hidden');
+        }
+
+        function showDetails(id) {
+            const item = equipment[id];
+            document.getElementById('catalog').classList.add('hidden');
+            document.getElementById('details').classList.remove('hidden');
+            
+            document.getElementById('equipmentTitle').textContent = item.title;
+            document.getElementById('equipmentModel').textContent = item.model;
+            document.getElementById('equipmentPrice').textContent = `$${item.price}/day`;
+            document.getElementById('mainImage').textContent = item.icon;
+            
+            const statusClass = item.status === 'Available' ? 'bg-green-100 text-green-800 pulse' : 
+                               item.status === 'Rented' ? 'bg-orange-100 text-orange-800' : 'bg-yellow-100 text-yellow-800';
+            document.getElementById('equipmentStatus').className = `px-3 py-1 rounded-full ${statusClass}`;
+            document.getElementById('equipmentStatus').textContent = item.status;
+            
+            updateCost();
+        }
+
+        function changeImage(icon) {
+            document.getElementById('mainImage').textContent = icon;
+        }
+
+        function updateCost() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            const price = parseInt(document.getElementById('equipmentPrice').textContent.match(/\d+/)[0]);
+            
+            if (start && end) {
+                const days = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)) + 1;
+                document.getElementById('totalDays').textContent = days > 0 ? days : 0;
+                document.getElementById('totalCost').textContent = `$${days > 0 ? days * price : 0}`;
+            }
+        }
+
+        function bookEquipment() {
+            const title = document.getElementById('equipmentTitle').textContent;
+            const cost = document.getElementById('totalCost').textContent;
+            alert(`✅ Booking confirmed for ${title}!\nTotal cost: ${cost}`);
+        }
+
+        function filterEquipment() {
+            // Filter functionality would go here
+            alert('Filter applied');
+        }
+
+        function searchEquipment() {
+            // Search functionality would go here
+        }
+
+        document.getElementById('startDate').addEventListener('change', updateCost);
+        document.getElementById('endDate').addEventListener('change', updateCost);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97edb2b7304eb2bb',t:'MTc1NzgyOTk4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

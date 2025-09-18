@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent - Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .role-card.active {
+            border-color: #059669;
+            background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2);
+        }
+        
+        .card-hover:hover { 
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl">🚜</span>
+                    <span class="text-2xl font-bold text-green-600">AgriRent</span>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" onclick="goBack()" class="text-gray-600 hover:text-green-600 font-medium">← Home</a>
+                    <a href="#" onclick="showLogin()" class="text-green-600 border border-green-600 px-4 py-2 rounded-lg hover:bg-green-50 font-medium">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen flex items-center justify-center py-12 px-4">
+        <div class="max-w-4xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Join AgriRent</h1>
+                <p class="text-lg text-gray-600">Choose your role to get started</p>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="grid md:grid-cols-2 gap-8 mb-12 max-w-2xl mx-auto">
+                <!-- Customer -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-8 text-center card-hover cursor-pointer transition-all" onclick="selectRole('customer')">
+                    <div class="text-6xl mb-4">👨‍🌾</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Farmer/Customer</h3>
+                    <p class="text-gray-600 mb-4">Rent agricultural equipment for your farming needs</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• Browse and book equipment</li>
+                        <li>• Track rental history</li>
+                        <li>• Get delivery services</li>
+                    </ul>
+                    <div class="bg-green-50 text-green-700 px-4 py-2 rounded-lg text-sm font-medium">🌾 Most Popular</div>
+                </div>
+
+                <!-- Provider -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-8 text-center card-hover cursor-pointer transition-all" onclick="selectRole('provider')">
+                    <div class="text-6xl mb-4">🏭</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Equipment Provider</h3>
+                    <p class="text-gray-600 mb-4">List your equipment and earn rental income</p>
+                    <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                        <li>• List equipment for rent</li>
+                        <li>• Manage bookings</li>
+                        <li>• Track earnings</li>
+                    </ul>
+                    <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium">💰 Earn Revenue</div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div id="registerForm" class="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6" style="display: none;">
+                <div class="text-center mb-6">
+                    <div id="roleIcon" class="text-5xl mb-3"></div>
+                    <h2 id="roleTitle" class="text-2xl font-bold text-gray-800"></h2>
+                </div>
+
+                <form onsubmit="handleRegister(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your full name">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your email">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your phone number">
+                    </div>
+
+                    <div id="locationField">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Enter your location">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Create a password">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input type="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="Confirm your password">
+                    </div>
+
+                    <div class="flex items-center">
+                        <input type="checkbox" required class="rounded border-gray-300 text-green-600 focus:ring-green-500">
+                        <span class="ml-2 text-sm text-gray-600">I agree to the Terms of Service and Privacy Policy</span>
+                    </div>
+
+                    <button type="submit" id="registerButton" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-all font-semibold">
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-gray-600 text-sm">Already have an account? 
+                        <a href="#" onclick="showLogin()" class="text-green-600 hover:text-green-700 font-medium">Login here</a>
+                    </p>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button onclick="goBackToRoles()" class="text-gray-500 hover:text-gray-700 text-sm">← Choose Different Role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRole = '';
+        
+        const roleData = {
+            customer: { 
+                icon: '👨‍🌾', 
+                title: 'Farmer Registration',
+                locationLabel: 'Farm Location'
+            },
+            provider: { 
+                icon: '🏭', 
+                title: 'Provider Registration',
+                locationLabel: 'Business Location'
+            }
+        };
+
+        function selectRole(role) {
+            selectedRole = role;
+            
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+            
+            const data = roleData[role];
+            document.getElementById('roleIcon').textContent = data.icon;
+            document.getElementById('roleTitle').textContent = data.title;
+            
+            // Update location field label
+            const locationLabel = document.querySelector('#locationField label');
+            locationLabel.textContent = data.locationLabel;
+            
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('registerForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function goBackToRoles() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            selectedRole = '';
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            if (!selectedRole) {
+                alert('Please select a role first');
+                return;
+            }
+            
+            const button = document.getElementById('registerButton');
+            button.textContent = 'Creating Account...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                alert(`✅ Registration successful! Welcome to AgriRent as a ${selectedRole}!`);
+                button.textContent = 'Create Account';
+                button.disabled = false;
+            }, 2000);
+        }
+
+        function showLogin() {
+            alert('Redirecting to login page...');
+        }
+
+        function goBack() {
+            alert('Redirecting to home page...');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ed8d568232b2c9',t:'MTc1NzgyODQ1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

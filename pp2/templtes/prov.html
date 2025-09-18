@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent Provider</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fade { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-active { background: #059669; color: white; }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <span class="text-2xl">🚜</span>
+            <h1 class="text-xl font-bold text-green-600">AgriRent Provider</h1>
+        </div>
+        <div class="flex items-center space-x-3">
+            <div class="relative">
+                <span class="text-xl">🔔</span>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center pulse">3</span>
+            </div>
+            <button onclick="alert('Logout')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Logout</button>
+        </div>
+    </header>
+
+    <div class="flex">
+        <nav class="w-48 bg-white shadow h-screen p-3">
+            <div class="space-y-1">
+                <div class="nav-active px-3 py-2 rounded cursor-pointer" onclick="showSection('equipment')">🚜 Equipment</div>
+                <div class="px-3 py-2 rounded cursor-pointer hover:bg-gray-100 relative" onclick="showSection('requests')">
+                    📋 Requests
+                    <span class="absolute right-1 top-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center pulse">3</span>
+                </div>
+                <div class="px-3 py-2 rounded cursor-pointer hover:bg-gray-100" onclick="showSection('payments')">💰 Payments</div>
+            </div>
+        </nav>
+
+        <main class="flex-1 p-4">
+            <!-- Equipment Section -->
+            <div id="equipment" class="section fade">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">My Equipment</h2>
+                    <button onclick="addEquipment()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">+ Add</button>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-3 mb-4">
+                    <div class="bg-white p-3 rounded shadow text-center">
+                        <div class="text-2xl font-bold text-blue-600">8</div>
+                        <div class="text-sm text-gray-500">Total</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow text-center">
+                        <div class="text-2xl font-bold text-green-600 pulse">5</div>
+                        <div class="text-sm text-gray-500">Available</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow text-center">
+                        <div class="text-2xl font-bold text-orange-600">3</div>
+                        <div class="text-sm text-gray-500">Rented</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow text-center">
+                        <div class="text-2xl font-bold text-purple-600">$12.5K</div>
+                        <div class="text-sm text-gray-500">Revenue</div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-3">
+                    <div class="bg-white rounded shadow p-3 hover:shadow-lg transition-all">
+                        <div class="text-3xl mb-2">🚜</div>
+                        <h3 class="font-bold">Heavy Tractor</h3>
+                        <div class="flex justify-between items-center my-2">
+                            <span class="font-bold text-green-600">$150/day</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                        </div>
+                        <button onclick="toggleEquipment('Tractor')" class="w-full bg-blue-500 text-white py-1 rounded text-sm hover:bg-blue-600">Toggle</button>
+                    </div>
+                    
+                    <div class="bg-white rounded shadow p-3 hover:shadow-lg transition-all">
+                        <div class="text-3xl mb-2">🌾</div>
+                        <h3 class="font-bold">Harvester</h3>
+                        <div class="flex justify-between items-center my-2">
+                            <span class="font-bold text-green-600">$300/day</span>
+                            <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs">Rented</span>
+                        </div>
+                        <button onclick="toggleEquipment('Harvester')" class="w-full bg-blue-500 text-white py-1 rounded text-sm hover:bg-blue-600">Toggle</button>
+                    </div>
+                    
+                    <div class="bg-white rounded shadow p-3 hover:shadow-lg transition-all">
+                        <div class="text-3xl mb-2">💧</div>
+                        <h3 class="font-bold">Irrigation</h3>
+                        <div class="flex justify-between items-center my-2">
+                            <span class="font-bold text-green-600">$75/day</span>
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs pulse">Available</span>
+                        </div>
+                        <button onclick="toggleEquipment('Irrigation')" class="w-full bg-blue-500 text-white py-1 rounded text-sm hover:bg-blue-600">Toggle</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests Section -->
+            <div id="requests" class="section hidden">
+                <h2 class="text-2xl font-bold mb-4">Booking Requests</h2>
+                
+                <div class="space-y-3">
+                    <div class="bg-white rounded shadow p-3 border-l-4 border-yellow-400">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">👨‍🌾 John Smith - Heavy Tractor</h4>
+                                <p class="text-sm text-gray-600">📅 Mar 20-22 • 💰 $450</p>
+                            </div>
+                            <div class="space-x-2">
+                                <button onclick="approveRequest('REQ001')" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                <button onclick="rejectRequest('REQ001')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded shadow p-3 border-l-4 border-yellow-400">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">👩‍🌾 Sarah Johnson - Irrigation</h4>
+                                <p class="text-sm text-gray-600">📅 Mar 25-30 • 💰 $450</p>
+                            </div>
+                            <div class="space-x-2">
+                                <button onclick="approveRequest('REQ002')" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                <button onclick="rejectRequest('REQ002')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded shadow p-3 border-l-4 border-yellow-400">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold">👨‍🌾 Mike Wilson - Harvester</h4>
+                                <p class="text-sm text-gray-600">📅 Mar 28-30 • 💰 $900</p>
+                            </div>
+                            <div class="space-x-2">
+                                <button onclick="approveRequest('REQ003')" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">Approve</button>
+                                <button onclick="rejectRequest('REQ003')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments Section -->
+            <div id="payments" class="section hidden">
+                <h2 class="text-2xl font-bold mb-4">Payment Tracking</h2>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white rounded shadow p-4">
+                        <h3 class="font-bold mb-3">Monthly Revenue</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span>March 2024</span>
+                                <span class="font-bold text-green-600">$12,500</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded shadow p-4">
+                        <h3 class="font-bold mb-3">Payment Status</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span>Harvester - Mike</span>
+                                <div>
+                                    <span class="font-bold text-green-600">$900</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs ml-1">Paid</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span>Tractor - Lisa</span>
+                                <div>
+                                    <span class="font-bold text-orange-600">$240</span>
+                                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs ml-1">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded shadow p-4">
+                    <h3 class="font-bold mb-3">Recent Payments</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Heavy Tractor - John Smith</span>
+                            <span class="font-bold text-green-600">$450</span>
+                        </div>
+                        <div class="flex justify-between p-2 bg-gray-50 rounded">
+                            <span>Irrigation - Sarah Johnson</span>
+                            <span class="font-bold text-green-600">$375</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showSection(name) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('nav div').forEach(n => n.classList.remove('nav-active'));
+            document.getElementById(name).classList.remove('hidden');
+            event.target.classList.add('nav-active');
+        }
+
+        function addEquipment() {
+            alert('✅ New equipment added successfully!');
+        }
+
+        function toggleEquipment(name) {
+            alert(`${name} availability toggled`);
+        }
+
+        function approveRequest(id) {
+            const btn = event.target;
+            btn.innerHTML = '⏳';
+            btn.disabled = true;
+            setTimeout(() => {
+                alert(`✅ Request ${id} approved!`);
+                btn.closest('.bg-white').style.display = 'none';
+            }, 800);
+        }
+
+        function rejectRequest(id) {
+            if(confirm('Reject this request?')) {
+                alert(`❌ Request ${id} rejected`);
+                event.target.closest('.bg-white').style.display = 'none';
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97edafb9078db2bb',t:'MTc1NzgyOTg2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
